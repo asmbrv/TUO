@@ -6,6 +6,7 @@ using ClassicUO.Configuration;
 using ClassicUO.Game.Data;
 using ClassicUO.Game.GameObjects;
 using ClassicUO.Game.Managers;
+using ClassicUO.Game.UI.Gumps.Login;
 using ClassicUO.Game.UI.Controls;
 using ClassicUO.Assets;
 using ClassicUO.Resources;
@@ -28,6 +29,11 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
         {
             _character = character;
 
+            // Define o container para o padrão de tela cheia
+            Width = 1024;
+            Height = 768;
+            CanCloseWithRightClick = false;
+
             foreach (Skill skill in _character.Skills)
             {
                 skill.ValueFixed = 0;
@@ -40,22 +46,22 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
             (
                 new ResizePic(2600)
                 {
-                    X = 100, Y = 80, Width = 470, Height = 372
+                    X = 215, Y = 175, Width = 470, Height = 372
                 }
             );
 
             // center menu with fancy top
             // public GumpPic(AControl parent, int x, int y, int gumpID, int hue)
-            Add(new GumpPic(291, 42, 0x0589, 0));
-            Add(new GumpPic(214, 58, 0x058B, 0));
-            Add(new GumpPic(300, 51, 0x15A9, 0));
+            Add(new GumpPic(406, 115, 0x0589, 0));
+            Add(new GumpPic(329, 153, 0x058B, 0));
+            Add(new GumpPic(415, 100, 0x15A9, 0));
 
             bool isAsianLang = string.Compare(Settings.GlobalSettings.Language, "CHT", StringComparison.InvariantCultureIgnoreCase) == 0 ||
                 string.Compare(Settings.GlobalSettings.Language, "KOR", StringComparison.InvariantCultureIgnoreCase) == 0 ||
                 string.Compare(Settings.GlobalSettings.Language, "JPN", StringComparison.InvariantCultureIgnoreCase) == 0;
 
             bool unicode = isAsianLang;
-            byte font = (byte)(isAsianLang ? 1 : 2);
+            byte font = 1;
             ushort hue = (ushort)(isAsianLang ? 0xFFFF : 0x0386);
 
             // title text
@@ -64,7 +70,7 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
             (
                 new Label(Client.Game.UO.FileManager.Clilocs.GetString(3000326), unicode, hue, font: font)
                 {
-                    X = 148, Y = 132
+                    X = 325, Y = 200
                 }
             );
 
@@ -73,7 +79,7 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
             (
                 new Label(Client.Game.UO.FileManager.Clilocs.GetString(3000111), unicode, 1, font: 1)
                 {
-                    X = 158, Y = 170
+                    X = 273, Y = 265
                 }
             );
 
@@ -81,7 +87,7 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
             (
                 new Label(Client.Game.UO.FileManager.Clilocs.GetString(3000112), unicode, 1, font: 1)
                 {
-                    X = 158, Y = 250
+                    X = 273, Y = 345
                 }
             );
 
@@ -89,7 +95,7 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
             (
                 new Label(Client.Game.UO.FileManager.Clilocs.GetString(3000113), unicode, 1, font: 1)
                 {
-                    X = 158, Y = 330
+                    X = 273, Y = 425
                 }
             );
 
@@ -102,8 +108,8 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
             (
                 _attributeSliders[0] = new HSliderBar
                 (
-                    164,
-                    196,
+                    279,
+                    291,
                     93,
                     10,
                     60,
@@ -117,8 +123,8 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
             (
                 _attributeSliders[1] = new HSliderBar
                 (
-                    164,
-                    276,
+                    279,
+                    371,
                     93,
                     10,
                     60,
@@ -132,8 +138,8 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
             (
                 _attributeSliders[2] = new HSliderBar
                 (
-                    164,
-                    356,
+                    279,
+                    451,
                     93,
                     10,
                     60,
@@ -192,7 +198,7 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
 
             string[] skillNames = _skillList.Select(s => s.Name).ToArray();
 
-            int y = 172;
+            int y = 267;
             _skillSliders = new HSliderBar[CharCreationGump._skillsCount];
             _skillsCombobox = new Combobox[CharCreationGump._skillsCount];
 
@@ -202,14 +208,14 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
                 (
                     _skillsCombobox[i] = new Combobox
                     (
-                        344,
+                        459,
                         y,
                         182,
                         skillNames,
                         -1,
                         200,
                         false,
-                        "Click here"
+                        " Choose your skill"
                     )
                 );
 
@@ -217,12 +223,12 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
                 (
                     _skillSliders[i] = new HSliderBar
                     (
-                        344,
+                        459,
                         y + 32,
                         93,
                         0,
                         50,
-                        defSkillsValues[i, 1],
+                        i < defSkillsValues.GetLength(0) ? defSkillsValues[i, 1] : 50,
                         HSliderBarStyle.MetalWidgetRecessedBar,
                         true
                     )
@@ -235,7 +241,7 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
             (
                 new Button((int) Buttons.Prev, 0x15A1, 0x15A3, 0x15A2)
                 {
-                    X = 586, Y = 445, ButtonAction = ButtonAction.Activate
+                    X = 5, Y = 650, ButtonAction = ButtonAction.Activate
                 }
             );
 
@@ -243,7 +249,7 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
             (
                 new Button((int) Buttons.Next, 0x15A4, 0x15A6, 0x15A5)
                 {
-                    X = 610, Y = 445, ButtonAction = ButtonAction.Activate
+                    X = 870, Y = 650, ButtonAction = ButtonAction.Activate
                 }
             );
 

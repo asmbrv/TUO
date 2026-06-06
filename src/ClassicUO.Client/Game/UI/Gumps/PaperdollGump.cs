@@ -1069,7 +1069,7 @@ namespace ClassicUO.Game.UI.Gumps
 
             public static ushort Graphic_Button_Virtue { get; set; } = 0x0071;
 
-            public static ushort Graphic_Button_Durability { get; set; } = 5587;
+            public static ushort Graphic_Button_Durability { get; set; } = 5555;
 
             public static ushort Graphic_Button_Combat { get; set; } = 0x2B34;
 
@@ -1080,7 +1080,7 @@ namespace ClassicUO.Game.UI.Gumps
             public static ushort Hue_Background_Player { get; set; } = 0;
             public static ushort Hue_Background_Other { get; set; } = 0;
 
-            public static ushort Hue_Title { get; set; } = 0x0386;
+            public static ushort Hue_Title { get; set; } = 0x1;
             public static int Size_Width_Hue { get; set; } = 185;
 
             public static int Position_X_Help { get; set; } = 185;
@@ -1120,8 +1120,8 @@ namespace ClassicUO.Game.UI.Gumps
             public static int Position_X_Virtue { get; set; } = 80;
             public static int Position_Y_Virtue { get; set; } = 4;
 
-            public static int Position_X_Durability { get; set; } = 12;
-            public static int Position_Y_Durability { get; set; } = 33;
+            public static int Position_X_Durability { get; set; } = 190;
+            public static int Position_Y_Durability { get; set; } = 285;
 
             public static int Position_X_LeftSlots { get; set; } = 2;
             public static int Position_Y_LeftSlots { get; set; } = 67;
@@ -1137,8 +1137,8 @@ namespace ClassicUO.Game.UI.Gumps
             public static int Position_X_CombatBook { get; set; } = 150;
             public static int Position_Y_CombatBook { get; set; } = 198;
 
-            public static int Position_X_Title { get; set; } = 39;
-            public static int Position_Y_Title { get; set; } = 262;
+            public static int Position_X_Title { get; set; } = 44;
+            public static int Position_Y_Title { get; set; } = 270;
 
             public static int Position_X_MinimizeButton { get; set; } = 228;
             public static int Position_Y_MinimizeButton { get; set; } = 260;

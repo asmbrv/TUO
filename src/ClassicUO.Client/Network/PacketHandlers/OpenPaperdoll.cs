@@ -26,7 +26,7 @@ internal static class OpenPaperdoll
             ModernPaperdoll modernPaperdoll = UIManager.GetGump<ModernPaperdoll>(mobile.Serial);
             if (modernPaperdoll != null)
             {
-                modernPaperdoll.UpdateTitle(text);
+                //modernPaperdoll.UpdateTitle(text);
                 modernPaperdoll.SetInScreen();
                 modernPaperdoll.BringOnTop();
             }

@@ -4,6 +4,7 @@ using System;
 using ClassicUO.Configuration;
 using System.Collections.Generic;
 using ClassicUO.Game.Managers;
+using ClassicUO.Game.UI.Gumps.Login;
 using ClassicUO.Game.UI.Controls;
 using ClassicUO.Input;
 using ClassicUO.Assets;
@@ -14,8 +15,22 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
     {
         private readonly ProfessionInfo _Parent;
 
+        public static CreateCharProfessionGump Instance { get; private set; }
+
         public CreateCharProfessionGump(World world, ProfessionInfo parent = null) : base(world, 0, 0)
         {
+            Instance?.Dispose();
+            Instance = this;
+
+            UIManager.GetGump<LoginGump>()?.Dispose();
+            UIManager.GetGump<ServerSelectionGump>()?.Dispose();
+            UIManager.GetGump<CharacterSelectionGump>()?.Dispose();
+
+            // Define o gump como o container da tela inteira (1024x768)
+            Width = 1024;
+            Height = 768;
+            CanCloseWithRightClick = false;
+
             _Parent = parent;
 
             if (parent == null || !Client.Game.UO.FileManager.Professions.Professions.TryGetValue(parent, out List<ProfessionInfo> professions) || professions == null)
@@ -28,16 +43,16 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
             (
                 new ResizePic(2600)
                 {
-                    X = 100,
-                    Y = 80,
+                    X = 215,
+                    Y = 175,
                     Width = 470,
                     Height = 372
                 }
             );
 
-            Add(new GumpPic(291, 42, 0x0589, 0));
-            Add(new GumpPic(214, 58, 0x058B, 0));
-            Add(new GumpPic(300, 51, 0x15A9, 0));
+            //Add(new GumpPic(171, -49, 0x0589, 0));
+            //Add(new GumpPic(94, -33, 0x058B, 0));
+            //Add(new GumpPic(180, -40, 0x15A9, 0));
 
             ClilocLoader localization = Client.Game.UO.FileManager.Clilocs;
 
@@ -46,15 +61,15 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
                 string.Compare(Settings.GlobalSettings.Language, "JPN", StringComparison.InvariantCultureIgnoreCase) == 0;
 
             bool unicode = isAsianLang;
-            byte font = (byte)(isAsianLang ? 1 : 2);
+            byte font = 1;
             ushort hue = (ushort)(isAsianLang ? 0xFFFF : 0x0386);
 
             Add
             (
-                new Label(localization.GetString(3000326, "Choose a Trade for Your Character"), unicode, hue, font: font)
+                new Label(localization.GetString(3000326, "Choose a class for your character"), unicode, hue, font: font)
                 {
-                    X = 158,
-                    Y = 132
+                    X = 325,
+                    Y = 200
                 }
             );
 
@@ -67,8 +82,8 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
                 (
                     new ProfessionInfoGump(professions[i])
                     {
-                        X = 145 + cx * 195,
-                        Y = 168 + cy * 70,
+                        X = 260 + cx * 195,
+                        Y = 260 + cy * 70,
 
                         Selected = SelectProfession
                     }
@@ -79,8 +94,18 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
             (
                 new Button((int) Buttons.Prev, 0x15A1, 0x15A3, 0x15A2)
                 {
-                    X = 586,
-                    Y = 445,
+                    X = 5,
+                    Y = 650,
+                    ButtonAction = ButtonAction.Activate
+                }
+            );
+            
+            Add
+            (
+                new Button((int) 1, 0x15A4, 0x15A6, 0x15A5) // Next Button (Place-holder se necessário)
+                {
+                    X = 870,
+                    Y = 650,
                     ButtonAction = ButtonAction.Activate
                 }
             );

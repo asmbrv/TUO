@@ -4,10 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using ClassicUO.Configuration;
+using ClassicUO.Game.Managers;
 using ClassicUO.Game.Scenes;
 using ClassicUO.Game.UI.Controls;
 using ClassicUO.Input;
 using ClassicUO.Assets;
+using ClassicUO.Game.UI.Gumps.CharCreation;
 using ClassicUO.Network;
 using ClassicUO.Resources;
 using ClassicUO.Utility;
@@ -18,18 +20,31 @@ namespace ClassicUO.Game.UI.Gumps.Login
 {
     public class ServerSelectionGump : Gump
     {
-        private const ushort SELECTED_COLOR = 0x0021;
+        private const ushort SELECTED_COLOR = 0x941;
         private const ushort NORMAL_COLOR = 0x034F;
+
+        public static ServerSelectionGump Instance { get; private set; }
 
         public ServerSelectionGump(World world) : base(world, 0, 0)
         {
+            Instance?.Dispose();
+            Instance = this;
+
+            UIManager.GetGump<LoginGump>()?.Dispose();
+            UIManager.GetGump<CharacterSelectionGump>()?.Dispose();
+            UIManager.GetGump<CharCreationGump>()?.Dispose();
+
             //AddChildren(new LoginBackground(true));
+
+            // Define o gump como o container da tela inteira para evitar snapping no canto
+            Width = 1024;
+            Height = 768;
 
             Add
             (
                 new Button((int) Buttons.Prev, 0x15A1, 0x15A3, 0x15A2)
                 {
-                    X = 586, Y = 445, ButtonAction = ButtonAction.Activate
+                    X = 5, Y = 650, ButtonAction = ButtonAction.Activate
                 }
             );
 
@@ -37,136 +52,82 @@ namespace ClassicUO.Game.UI.Gumps.Login
             (
                 new Button((int) Buttons.Next, 0x15A4, 0x15A6, 0x15A5)
                 {
-                    X = 610, Y = 445, ButtonAction = ButtonAction.Activate
+                    X = 870, Y = 650, ButtonAction = ButtonAction.Activate
                 }
             );
 
-            if (Client.Game.UO.Version >= ClientVersion.CV_500A)
+            ushort textColor = 0x921;
+
+            //Add(new Label(ResGumps.SelectWhichShardToPlayOn, false, textColor, font: 9)
+            //{
+            //    X = 275, Y = 210
+            //});
+
+            Add(new Label(ResGumps.Latency, false, textColor, font: 9)
             {
-                ushort textColor = 0xFFFF;
+                X = 495, Y = 210
+            });
 
-                Add
-                (
-                    new Label(Client.Game.UO.FileManager.Clilocs.GetString(1044579), true, textColor, font: 1)
-                    {
-                        X = 155, Y = 70
-                    }
-                ); // "Select which shard to play on:"
-
-                if (CUOEnviroment.NoServerPing == false)
-                {
-                    Add
-                    (
-                        new Label(Client.Game.UO.FileManager.Clilocs.GetString(1044577), true, textColor, font: 1)
-                        {
-                            X = 400, Y = 70
-                        }
-                    ); // "Latency:"
-
-                    Add
-                    (
-                        new Label(Client.Game.UO.FileManager.Clilocs.GetString(1044578), true, textColor, font: 1)
-                        {
-                            X = 470, Y = 70
-                        }
-                    ); // "Packet Loss:"
-                }
-
-                Add
-                (
-                    new Label(Client.Game.UO.FileManager.Clilocs.GetString(1044580), true, textColor, font: 1)
-                    {
-                        X = 153, Y = 368
-                    }
-                ); // "Sort by:"
-            }
-            else
+            Add(new Label(ResGumps.PacketLoss, false, textColor, font: 9)
             {
-                ushort textColor = 0x0481;
+                X = 560, Y = 210
+            });
 
-                Add
-                (
-                    new Label(ResGumps.SelectWhichShardToPlayOn, false, textColor, font: 9)
-                    {
-                        X = 155, Y = 70
-                    }
-                );
+            //Add(new Label(ResGumps.SortBy, false, textColor, font: 9)
+            //{
+            //    X = 273, Y = 508
+            //});
 
-                Add
-                (
-                    new Label(ResGumps.Latency, false, textColor, font: 9)
-                    {
-                        X = 400, Y = 70
-                    }
-                );
+            //Add
+            //(
+            //    new Button((int) Buttons.SortTimeZone, 0x093B, 0x093C, 0x093D)
+            //    {
+            //        X = 230, Y = 366
+            //    }
+            //);
 
-                Add
-                (
-                    new Label(ResGumps.PacketLoss, false, textColor, font: 9)
-                    {
-                        X = 470, Y = 70
-                    }
-                );
+            //Add
+            //(
+            //    new Button((int) Buttons.SortFull, 0x093E, 0x093F, 0x0940)
+            //    {
+            //        X = 338, Y = 366
+            //    }
+            //);
 
-                Add
-                (
-                    new Label(ResGumps.SortBy, false, textColor, font: 9)
-                    {
-                        X = 153, Y = 368
-                    }
-                );
-            }
-
-            Add
-            (
-                new Button((int) Buttons.SortTimeZone, 0x093B, 0x093C, 0x093D)
-                {
-                    X = 230, Y = 366
-                }
-            );
-
-            Add
-            (
-                new Button((int) Buttons.SortFull, 0x093E, 0x093F, 0x0940)
-                {
-                    X = 338, Y = 366
-                }
-            );
-
-            Add
-            (
-                new Button((int) Buttons.SortConnection, 0x0941, 0x0942, 0x0943)
-                {
-                    X = 446, Y = 366
-                }
-            );
+            //Add
+            //(
+            //    new Button((int) Buttons.SortConnection, 0x0941, 0x0942, 0x0943)
+            //    {
+            //        X = 446, Y = 366
+            //    }
+            //);
 
             // World Pic Bg
-            Add(new GumpPic(150, 390, 0x0589, 0));
+            //Add(new GumpPic(150, 390, 0x0589, 0));
 
             // Earth
-            Add
-            (
-                new Button((int) Buttons.Earth, 0x15E8, 0x15EA, 0x15E9)
-                {
-                    X = 160, Y = 400, ButtonAction = ButtonAction.Activate
-                }
-            );
+            //Add
+            //(
+            //    new Button((int) Buttons.Earth, 0x15E8, 0x15EA, 0x15E9)
+            //    {
+            //        X = 160, Y = 400, ButtonAction = ButtonAction.Activate
+            //    }
+            // );
 
             // Sever Scroll Area Bg
             Add
             (
                 new ResizePic(0x0DAC)
                 {
-                    X = 150, Y = 90, Width = 393 - 14, Height = 271
+                    X = 270, Y = 230, Width = 393 - 14, Height = 271
                 }
             );
 
             // Sever Scroll Area
             var scrollArea = new ScrollArea
             (
-                150,
-                90,
+                270,
+                230,
                 393,
                 271,
                 true
@@ -181,7 +142,7 @@ namespace ClassicUO.Game.UI.Gumps.Login
 
             foreach (ServerListEntry server in loginScene.Servers)
             {
-                databox.Add(new ServerEntryGump(server, 5, NORMAL_COLOR, SELECTED_COLOR));
+                databox.Add(new ServerEntryGump(server, 9, NORMAL_COLOR, SELECTED_COLOR));
             }
 
             databox.ReArrangeChildren();
@@ -193,14 +154,14 @@ namespace ClassicUO.Game.UI.Gumps.Login
             {
                 int index = loginScene.GetServerIndexFromSettings();
 
-                Add
-                (
-                    new Label(loginScene.Servers[index].Name, false, 0x0481, font: 9)
-                    {
-                        X = 243,
-                        Y = 420
-                    }
-                );
+                //Add
+                //(
+                //    new Label(loginScene.Servers[index].Name, false, 0x0481, font: 9)
+                //    {
+                //        X = 243,
+                //        Y = 420
+                //    }
+                //);
             }
 
             AcceptKeyboardInput = true;
@@ -309,7 +270,7 @@ namespace ClassicUO.Game.UI.Gumps.Login
                         font: font
                     )
                     {
-                        X = 74,
+                        X = 10,
                         AcceptMouseInput = false
                     }
                 );

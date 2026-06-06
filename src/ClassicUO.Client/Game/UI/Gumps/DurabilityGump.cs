@@ -19,7 +19,7 @@ namespace ClassicUO.Game.UI.Gumps
 
         public DurabilityGumpMinimized(World world) : base(world, 0, 0)
         {
-            SetTooltip("Open Equipment Durability Tracker");
+            SetTooltip("Open Equipment Durability");
 
             WantUpdateSize = true;
             AcceptMouseInput = true;

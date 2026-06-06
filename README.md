@@ -1,49 +1,29 @@
-<p align="center"><a href="https://discord.gg/QvqzkB95G4"><img src="https://discord.com/api/guilds/1344851225538986064/widget.png?style=banner3" alt="Discord Banner 3"/></a></p>
-
 ***
-
-
-| Channel | Status                                                                                                                                                                     |
-| --- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Release | [![Release](https://github.com/PlayTazUO/TazUO/actions/workflows/build-test.yml/badge.svg?branch=main)](https://github.com/PlayTazUO/TazUO/actions/workflows/build-test.yml) |
-| Dev | [![Dev](https://github.com/PlayTazUO/TazUO/actions/workflows/build-test.yml/badge.svg?branch=dev)](https://github.com/PlayTazUO/TazUO/actions/workflows/build-test.yml)        |
-
-
 # What is TazUO?
-**TazUO** was originally a fork from ClassicUO with the mindset of adding features requested by users to improve QOL. **TazUO** has since moved away from ClassicUO, we will keep an eye on ClassicUO updates and incorporate changes or fixes as they have a wider user base that provides bug reports, but **TazUO** will no longer be merging all changes from ClassicUO.
+**TazUO** was originally a fork of ClassicUO with the goal of adding user-requested features to improve the user experience. It is now an independent project with even more features. 
 
-# Play now
-The easiest way to play with TazUO is via our [launcher](https://github.com/PlayTazUO/TUO-Launcher/releases/latest)!
+You can find more information about the project by visiting [Github](https://github.com/PlayTazUO/) and [Discord Server](https://discord.gg/QvqzkB95G4).
 
-# TazUO features
-Check out our [website](https://tazuo.org) for details on all the changes TazUO has made for players!  
+# About this branch
+This is a visual layout mod for TazUO as a custom Ultima Online client. It is compatible with UO Memento, as this has been my preferred environment for playing Ultima atm (thanks to Tsai and everyone directly and indirectly responsible for the project).
 
-***Most*** features can be disabled if you don't want to use said feature.  
+I do not guarantee perfect functionality on your local server or other servers, so be cautious and perform the necessary tests, as this modification may alter elements, buttons, and positions that may be considered essential for the functioning of some servers. This is a personal, customized work, not focused on general use, but it can be adapted for that purpose by those interested.
 
-- [Launcher](https://tazuo.org/?q=launcher) - Managing profiles for multiple accounts/servers
-- [Grid containers](https://tazuo.org/?q=grid+containers) - Easily find and move items with our fully customizable grid containers
-- [Custom build-in scripting](https://tazuo.org/?q=legion+scripting) - Build in powerful scripting languages. **Python** and Legion Script.
-- **Assistant features built-in** - Like Auto buy, sell, auto loot and more.
-- [Journal](https://tazuo.org/?q=journal) - Vastly improved journal for readability and organization
-- [Alternative paperdoll](https://tazuo.org/?q=alternate+paperdoll) - A new flavor of your paperdoll
-- [Improved buff bar](https://tazuo.org/?q=buff+bars)
-- [Client commands](https://tazuo.org/?q=commands) - Several commands have been added for various features
-- [Controller support](https://tazuo.org/?q=controller+support) - That's right, play with your controller!
-- [Cooldown bars](https://tazuo.org/?q=cooldown+bars) - Customizable cooldown bars
-- [Grid Highlighting](https://tazuo.org/?q=grid+highlighting) - Grid highlighting of items that have specific properties, easier looting!
-- [Tooltip overrides](https://tazuo.org/?q=tooltip+override) - Customize and override any text in tooltips!
-- [Custom fonts](https://tazuo.org/?q=ttf+fonts) - BYOF, Bring your own fonts for better readability.
+Feel free to use any modifications made in your projects, considering the credits to this author, as well as to the ClassicUO and TazUO teams for the excellent work they have offered to the community over the years. My small contribution here is just a grain of sand.
 
-There are ***many*** more features to check out in our [website](https://tazuo.org) or in game, this list is just a sample!
+***Important***: Once the client has compiled, use the External Images\Gimp folder to include your preferred 1024x768 resolution design for the login screen background images, ensuring the correct ID for each image, as the design materials seen in the screenshots are **NOT** included here (only the modern paperdoll gump frame seen in the last screenshot).
 
 
 # Screenshots
-![Cooldown](https://user-images.githubusercontent.com/3859393/227056224-ef1c6958-fff5-4698-a21a-c63c5814877c.gif)  
-![SlottedInv](https://user-images.githubusercontent.com/3859393/226514464-32919a68-ebad-4ec0-8bcf-8614a5055f7d.gif)  
-![Grid Previe](https://user-images.githubusercontent.com/3859393/222873187-c88ad321-8b19-4cfd-9617-7e23b2443b6a.gif)  
-![image](https://user-images.githubusercontent.com/3859393/222975241-319e5fa6-2c1e-441d-97e6-b04a5e1f6f3b.png)  
-![Journal](https://user-images.githubusercontent.com/3859393/222942915-e31d26aa-e9a7-41df-9c99-570bcc00d1fb.gif)  
-![image](https://user-images.githubusercontent.com/3859393/225168130-5ce83950-853d-43ce-9583-65ec4b0ae9d6.png)  
-![image](https://user-images.githubusercontent.com/3859393/225307385-c8e8014f-9b84-4fe4-a2cd-f33fbeee9563.png)  
-![image](https://user-images.githubusercontent.com/3859393/226114408-28c6556d-6ba8-43c7-bf1a-079342aaeacd.png)  
-![image](https://user-images.githubusercontent.com/3859393/226114417-e68b1653-f719-49b3-b799-0beb07e0a211.png)  
+<img width="1282" height="1000" alt="01" src="https://github.com/user-attachments/assets/d166584c-c4da-4562-9b13-dffbb27adf26" />
+<img width="1282" height="1000" alt="02" src="https://github.com/user-attachments/assets/217fa6e6-4a33-47ad-9d80-3dfeba573fb8" />
+<img width="1282" height="1000" alt="03" src="https://github.com/user-attachments/assets/6c49b668-02f7-4599-a8ab-a1b036d17c02" />
+<img width="1282" height="1000" alt="04" src="https://github.com/user-attachments/assets/50b0411a-2043-4b6e-8fd4-60b456e01bd4" />
+<img width="1282" height="1000" alt="05" src="https://github.com/user-attachments/assets/de3af7c4-529d-4e29-ad6a-e4fc0bd8ba36" />
+<img width="1282" height="1000" alt="06" src="https://github.com/user-attachments/assets/a765cb77-ef52-4e6a-85bc-eddf31ae396f" />
+<img width="1282" height="1000" alt="07" src="https://github.com/user-attachments/assets/7ad955c3-af19-479d-8e43-e129e39b8e5e" />
+<img width="1282" height="1000" alt="08" src="https://github.com/user-attachments/assets/325f6bfe-6b6e-47f9-8b46-2583ec81efde" />
+<img width="503" height="600" alt="100954" src="https://github.com/user-attachments/assets/54640ff8-e4dd-4e2d-bf87-11872f2d0de4" />
+<img width="610" height="436" alt="100904" src="https://github.com/user-attachments/assets/ce748ff4-8cb5-46d7-84c8-385ce3fa90ae" />
+<img width="556" height="197" alt="101008" src="https://github.com/user-attachments/assets/90146172-d704-44ef-839a-ca351cab7fad" />
+<img width="742" height="547" alt="101046" src="https://github.com/user-attachments/assets/7dac4294-cc4f-4a77-99bb-bf989f43d1fe" />

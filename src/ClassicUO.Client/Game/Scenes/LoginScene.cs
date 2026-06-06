@@ -86,6 +86,8 @@ namespace ClassicUO.Game.Scenes
 
             _autoLogin = Settings.GlobalSettings.AutoLogin;
 
+            UpdateWindowSize();
+
             UIManager.Add(new LoginBackground(_world));
 
             if (string.IsNullOrEmpty(Settings.GlobalSettings.IP))
@@ -106,18 +108,21 @@ namespace ClassicUO.Game.Scenes
                                     }
                                 }
                                 UIManager.Add(_currentGump = new LoginGump(_world, this));
+                                CenterCurrentGump();
                             })
                             { X = 130, Y = 150 });
                         }
                         else //Port is > 0, possibly valid
                         {
                             UIManager.Add(_currentGump = new LoginGump(_world, this));
+                            CenterCurrentGump();
                         }
                         Settings.GlobalSettings.IP = input;
                     }
                     else //Cancel ip entry
                     {
                         UIManager.Add(_currentGump = new LoginGump(_world, this));
+                        CenterCurrentGump();
                     }
                 })
                 { X = 130, Y = 150 });
@@ -125,6 +130,7 @@ namespace ClassicUO.Game.Scenes
             else
             {
                 UIManager.Add(_currentGump = new LoginGump(_world, this));
+                CenterCurrentGump();
             }
 
             Client.Game.Audio.PlayMusic(Client.Game.Audio.LoginMusicIndex, false, true);
@@ -147,7 +153,37 @@ namespace ClassicUO.Game.Scenes
             UpdateWindowSize();
         }
 
-        private void UpdateWindowSize() => Client.Game.SetWindowSize((int)(640 * Client.Game.RenderScale), (int)(480 * Client.Game.RenderScale));
+        private void UpdateWindowSize()
+        {
+            int width = (int)(1024 * Client.Game.RenderScale);
+            int height = (int)(768 * Client.Game.RenderScale);
+
+            Client.Game.SetWindowSize(width, height);
+
+            UIManager.GetGump<LoginBackground>()?.ResizeBackground(width, height);
+            CenterCurrentGump();
+        }
+
+        private void CenterCurrentGump()
+        {
+            if (_currentGump == null)
+            {
+                return;
+            }
+
+            if (_currentGump.WantUpdateSize)
+            {
+                _currentGump.Update();
+            }
+
+            if (_currentGump.Width == 0 || _currentGump.Height == 0)
+            {
+                _currentGump.Update();
+            }
+
+            _currentGump.CenterXInScreen();
+            _currentGump.CenterYInScreen();
+        }
 
         public override void Unload()
         {
@@ -230,6 +266,7 @@ namespace ClassicUO.Game.Scenes
 
                 Client.Game.UO.GameCursor.IsLoading = false;
                 UIManager.Add(_currentGump = GetGumpForStep());
+                CenterCurrentGump();
                 g?.Dispose();
             });
 

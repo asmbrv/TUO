@@ -1,5 +1,6 @@
-﻿// SPDX-License-Identifier: BSD-2-Clause
+﻿﻿// SPDX-License-Identifier: BSD-2-Clause
 
+using System;
 using ClassicUO.Game.UI.Controls;
 using ClassicUO.Utility;
 
@@ -7,22 +8,18 @@ namespace ClassicUO.Game.UI.Gumps.Login
 {
     public class LoginBackground : Gump
     {
+        private readonly GumpPicTiled _background;
+
         public LoginBackground(World world) : base(world, 0, 0)
         {
+            int width = Math.Max(640, Client.Game.Window.ClientBounds.Width);
+            int height = Math.Max(480, Client.Game.Window.ClientBounds.Height);
+
             if (Client.Game.UO.Version >= ClientVersion.CV_706400)
             {
                 // Background
-                Add
-                (
-                    new GumpPicTiled
-                    (
-                        0,
-                        0,
-                        640,
-                        480,
-                        0x0150
-                    ) { AcceptKeyboardInput = false }
-                );
+                _background = new GumpPicTiled(0, 0, width, height, 0x0150) { AcceptKeyboardInput = false };
+                Add(_background);
 
                 // UO Flag
                 Add(new GumpPic(0, 4, 0x0151, 0) { AcceptKeyboardInput = false });
@@ -30,17 +27,8 @@ namespace ClassicUO.Game.UI.Gumps.Login
             else
             {
                 // Background
-                Add
-                (
-                    new GumpPicTiled
-                    (
-                        0,
-                        0,
-                        640,
-                        480,
-                        0x0E14
-                    ) { AcceptKeyboardInput = false }
-                );
+                _background = new GumpPicTiled(0, 0, width, height, 0x0E14) { AcceptKeyboardInput = false };
+                Add(_background);
 
                 // Border
                 Add(new GumpPic(0, 0, 0x157C, 0) { AcceptKeyboardInput = false });
@@ -66,6 +54,17 @@ namespace ClassicUO.Game.UI.Gumps.Login
             AcceptKeyboardInput = false;
 
             LayerOrder = UILayer.Under;
+        }
+
+        public void ResizeBackground(int width, int height)
+        {
+            if (width <= 0 || height <= 0)
+            {
+                return;
+            }
+
+            _background.Width = width;
+            _background.Height = height;
         }
 
         public override void Update()

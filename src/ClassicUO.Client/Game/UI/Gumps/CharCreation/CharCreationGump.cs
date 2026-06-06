@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: BSD-2-Clause
+﻿﻿﻿﻿// SPDX-License-Identifier: BSD-2-Clause
 
 using System.Linq;
 using ClassicUO.Game.Data;
@@ -21,8 +21,22 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
         private readonly LoginScene _loginScene;
         private ProfessionInfo _selectedProfession;
 
+        public static CharCreationGump Instance { get; private set; }
+
         public CharCreationGump(World world, LoginScene scene) : base(world, 0, 0)
         {
+            Instance?.Dispose();
+            Instance = this;
+
+            UIManager.GetGump<LoginGump>()?.Dispose();
+            UIManager.GetGump<ServerSelectionGump>()?.Dispose();
+            UIManager.GetGump<CharacterSelectionGump>()?.Dispose();
+
+            // Define o gump pai como container de tela cheia para alinhar os filhos corretamente
+            Width = 1024;
+            Height = 768;
+            CanCloseWithRightClick = false;
+
             _loginScene = scene;
             Add(new CreateCharAppearanceGump(world), 1);
             SetStep(CharCreationStep.Appearence);

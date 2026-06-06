@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: BSD-2-Clause
+﻿﻿// SPDX-License-Identifier: BSD-2-Clause
 
 using System;
 using ClassicUO.Configuration;
@@ -21,11 +21,15 @@ namespace ClassicUO.Game.UI.Gumps.Login
         private readonly Action<int> _buttonClick;
         private readonly Label _label;
 
-        public LoadingGump(World world, string labelText, LoginButtons showButtons, Action<int> buttonClick = null) : base(world, 0, 0)
+        public LoadingGump(World world, string labelText, LoginButtons showButtons, Action<int> buttonClick = null) : base(world, 329, 278)
         {
             _buttonClick = buttonClick;
             CanCloseWithRightClick = false;
             CanCloseWithEsc = false;
+
+            // Define o tamanho real do Gump para que o motor de UI o trate corretamente
+            Width = 366;
+            Height = 212;
 
             bool isAsianLang = string.Compare(Settings.GlobalSettings.Language, "CHT", StringComparison.InvariantCultureIgnoreCase) == 0 ||
                 string.Compare(Settings.GlobalSettings.Language, "KOR", StringComparison.InvariantCultureIgnoreCase) == 0 ||
@@ -41,19 +45,19 @@ namespace ClassicUO.Game.UI.Gumps.Login
                 unicode,
                 hue,
                 326,
-                font,
+                9,
                 align: TEXT_ALIGN_TYPE.TS_CENTER
             )
             {
-                X = 162,
-                Y = 178
+                X = 20, // (366 - 326) / 2
+                Y = 44  // Offset original relativo ao topo do frame
             };
 
             Add
             (
                 new ResizePic(0x0A28)
                 {
-                    X = 142, Y = 134, Width = 366, Height = 212
+                    X = 0, Y = 0, Width = 366, Height = 212
                 }
             );
 
@@ -65,7 +69,7 @@ namespace ClassicUO.Game.UI.Gumps.Login
                 (
                     new Button((int) LoginButtons.OK, 0x0481, 0x0483, 0x0482)
                     {
-                        X = 306, Y = 304, ButtonAction = ButtonAction.Activate
+                        X = 164, Y = 170, ButtonAction = ButtonAction.Activate
                     }
                 );
             }
@@ -75,8 +79,8 @@ namespace ClassicUO.Game.UI.Gumps.Login
                 (
                     new Button((int) LoginButtons.Cancel, 0x047E, 0x0480, 0x047F)
                     {
-                        X = 306,
-                        Y = 304,
+                        X = 164,
+                        Y = 170,
                         ButtonAction = ButtonAction.Activate
                     }
                 );
@@ -87,7 +91,7 @@ namespace ClassicUO.Game.UI.Gumps.Login
                 (
                     new Button((int) LoginButtons.OK, 0x0481, 0x0483, 0x0482)
                     {
-                        X = 264, Y = 304, ButtonAction = ButtonAction.Activate
+                        X = 122, Y = 170, ButtonAction = ButtonAction.Activate
                     }
                 );
 
@@ -95,7 +99,7 @@ namespace ClassicUO.Game.UI.Gumps.Login
                 (
                     new Button((int) LoginButtons.Cancel, 0x047E, 0x0480, 0x047F)
                     {
-                        X = 348, Y = 304, ButtonAction = ButtonAction.Activate
+                        X = 206, Y = 170, ButtonAction = ButtonAction.Activate
                     }
                 );
             }

@@ -508,6 +508,9 @@ namespace ClassicUO.Configuration
         public ushort ModernPaperDollDurabilityHue { get; set => SetProperty(ref field, value); } = 32;
         public int ModernPaperDoll_DurabilityPercent { get; set => SetProperty(ref field, value); } = 90;
         [JsonConverter(typeof(Point2Converter))] public Point ModernPaperdollPosition { get; set => SetProperty(ref field, value); } = new Point(100, 100);
+        public bool CharacterPreviewVisible { get; set => SetProperty(ref field, value); } = false;
+        [JsonConverter(typeof(Point2Converter))] public Point CharacterPreviewPosition { get; set => SetProperty(ref field, value); }
+        [JsonConverter(typeof(Point2Converter))] public Point SkillsGumpPosition { get; set => SetProperty(ref field, value); } = new Point(100, 100);
         #endregion
 
         #region Health indicator

@@ -93,13 +93,13 @@ namespace ClassicUO.Game.Scenes
             _world = world;
             _autoUnequipActionManager = new AutoUnequipActionManager(_world);
 
-            SDL.SDL_SetWindowMinimumSize(Client.Game.Window.Handle, 640, 480);
+            SDL.SDL_SetWindowMinimumSize(Client.Game.Window.Handle, 1024, 768);
 
             Camera.Zoom = ProfileManager.CurrentProfile.DefaultScale;
             Camera.Bounds.X = Math.Max(0, ProfileManager.CurrentProfile.GameWindowPosition.X);
             Camera.Bounds.Y = Math.Max(0, ProfileManager.CurrentProfile.GameWindowPosition.Y);
-            Camera.Bounds.Width = Math.Max(640, ProfileManager.CurrentProfile.GameWindowSize.X);
-            Camera.Bounds.Height = Math.Max(480, ProfileManager.CurrentProfile.GameWindowSize.Y);
+            Camera.Bounds.Width = Math.Max(1024, ProfileManager.CurrentProfile.GameWindowSize.X);
+            Camera.Bounds.Height = Math.Max(768, ProfileManager.CurrentProfile.GameWindowSize.Y);
 
             Client.Game.Window.AllowUserResizing = true;
 
@@ -126,12 +126,12 @@ namespace ClassicUO.Game.Scenes
                 else
                 {
                     // FALLBACK: Use profile's game window size
-                    w = Math.Max(800, ProfileManager.CurrentProfile.GameWindowSize.X);
-                    h = Math.Max(600, ProfileManager.CurrentProfile.GameWindowSize.Y);
+                    w = Math.Max(1024, ProfileManager.CurrentProfile.GameWindowSize.X);
+                    h = Math.Max(768, ProfileManager.CurrentProfile.GameWindowSize.Y);
                 }
 
-                w = Math.Max(640, w);
-                h = Math.Max(480, h);
+                w = Math.Max(1024, w);
+                h = Math.Max(768, h);
 
                 _expectedWindowSize = new Point(w, h);
                 _waitingForWindowResize = true;

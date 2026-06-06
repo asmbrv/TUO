@@ -22,23 +22,24 @@ namespace ClassicUO.Game.UI.Gumps
     public class ModernPaperdoll : AnchorableGump
     {
         #region CONST
-        private const int WIDTH = 250, HEIGHT = 380;
-        private const int CELL_SPACING = 2, TOP_SPACING = 40;
+        private const int WIDTH = 248, HEIGHT = 410;
+        private const int CELL_SPACING = 2, TOP_SPACING = 55;
         private Texture2D MordernPaperdollGump;
 
         private void InitializeTexture()
         {
             if (MordernPaperdollGump == null)
             {
-                PNGLoader.Instance.TryGetEmbeddedTexture("modern-paperdollgump.png", out MordernPaperdollGump);
+                PNGLoader.Instance.TryGetEmbeddedTexture("equipment-gump.png", out MordernPaperdollGump);
             }
         }
         #endregion
 
         #region VARS
         private readonly Dictionary<Layer[], ItemSlot> itemLayerSlots;
-        private Label titleLabel;
+        //private Label titleLabel;
         private static int lastX = 100, lastY = 100;
+        private static int lastPreviewX = -1, lastPreviewY = -1;
         private GumpPicBase backgroundImage;
         #endregion
 
@@ -60,6 +61,12 @@ namespace ClassicUO.Game.UI.Gumps
                 lastX = ProfileManager.CurrentProfile.ModernPaperdollPosition.X;
                 lastY = ProfileManager.CurrentProfile.ModernPaperdollPosition.Y;
                 IsLocked = ProfileManager.CurrentProfile.PaperdollLocked;
+
+                if (lastPreviewX == -1)
+                {
+                    lastPreviewX = ProfileManager.CurrentProfile.CharacterPreviewPosition.X;
+                    lastPreviewY = ProfileManager.CurrentProfile.CharacterPreviewPosition.Y;
+                }
             }
             X = lastX;
             Y = lastY;
@@ -72,7 +79,7 @@ namespace ClassicUO.Game.UI.Gumps
 
             var _menuHit = new HitBox(Width - 26, 1, 25, 16, alpha: 0f);
             Add(_menuHit);
-            _menuHit.SetTooltip("Open paperdoll menu");
+            _menuHit.SetTooltip("Open Menu");
             _menuHit.MouseUp += (sender, e) =>
             {
                 if (e.Button == MouseButtonType.Left)
@@ -85,81 +92,81 @@ namespace ClassicUO.Game.UI.Gumps
             #region SET UP ITEM SLOTS
             ItemSlot _;
 
-            _ = new ItemSlot(world, 35, 35, new Layer[] { Layer.Earrings }) { X = 100 - 35 - CELL_SPACING, Y = TOP_SPACING + 15 };
+            _ = new ItemSlot(world, 35, 35, new Layer[] { Layer.Earrings }, 0f, 1.1f) { X = 135 + CELL_SPACING, Y = TOP_SPACING + 15 };
             itemLayerSlots.Add(_.Layers, _); //Earrings
 
-            _ = new ItemSlot(world, 50, 50, new Layer[] { Layer.Helmet }) { X = 100, Y = TOP_SPACING };
+            _ = new ItemSlot(world, 50, 50, new Layer[] { Layer.Helmet }, 0f, 1.1f) { X = 100, Y = TOP_SPACING - 40};
             itemLayerSlots.Add(_.Layers, _); //Head
 
-            _ = new ItemSlot(world, 35, 35, new Layer[] { Layer.Necklace }) { X = 150 + CELL_SPACING, Y = TOP_SPACING + 15 };
+            _ = new ItemSlot(world, 35, 35, new Layer[] { Layer.Necklace }, 0f, 1.1f) { X = 75, Y = TOP_SPACING + 15 };
             itemLayerSlots.Add(_.Layers, _); //Amulet
 
 
-            _ = new ItemSlot(world, 50, 75, new Layer[] { Layer.OneHanded }) { X = 50 - CELL_SPACING, Y = 50 + CELL_SPACING + TOP_SPACING };
+            _ = new ItemSlot(world, 50, 75, new Layer[] { Layer.OneHanded }, 0f, 1.0f) { X = 10 - CELL_SPACING, Y = 47 + CELL_SPACING + TOP_SPACING };
             itemLayerSlots.Add(_.Layers, _); //L Wep
 
-            _ = new ItemSlot(world, 50, 75, new Layer[] { Layer.Torso }) { X = 100, Y = 50 + CELL_SPACING + TOP_SPACING };
+            _ = new ItemSlot(world, 50, 75, new Layer[] { Layer.Torso }, 0f, 1.1f) { X = 101, Y = 48 + CELL_SPACING + TOP_SPACING };
             itemLayerSlots.Add(_.Layers, _); //Chest
 
-            _ = new ItemSlot(world, 50, 75, new Layer[] { Layer.TwoHanded }) { X = 150 + CELL_SPACING, Y = 50 + CELL_SPACING + TOP_SPACING };
+            _ = new ItemSlot(world, 50, 75, new Layer[] { Layer.TwoHanded }, 0f, 1.1f) { X = 190, Y = 47 + CELL_SPACING + TOP_SPACING };
             itemLayerSlots.Add(_.Layers, _); //R Wep
 
 
-            _ = new ItemSlot(world, 50, 50, new Layer[] { Layer.Arms }) { X = 50 - CELL_SPACING, Y = 125 + CELL_SPACING + TOP_SPACING };
+            _ = new ItemSlot(world, 50, 50, new Layer[] { Layer.Arms }, 0f, 1.1f) { X = 7, Y = 185 };
             itemLayerSlots.Add(_.Layers, _); //Arms
 
-            _ = new ItemSlot(world, 50, 50, new Layer[] { Layer.Robe }) { X = 100, Y = 125 + CELL_SPACING + TOP_SPACING };
+            _ = new ItemSlot(world, 50, 50, new Layer[] { Layer.Robe }, 0f, 1.0f) { X = 190, Y = 186 };
             itemLayerSlots.Add(_.Layers, _); //Robe
 
-            _ = new ItemSlot(world, 50, 50, new Layer[] { Layer.Cloak }) { X = 150 + CELL_SPACING, Y = 125 + CELL_SPACING + TOP_SPACING };
+            _ = new ItemSlot(world, 50, 50, new Layer[] { Layer.Cloak }, 0f, 1.0f) { X = 189, Y = 252 };
             itemLayerSlots.Add(_.Layers, _); //Cloak
 
 
-            _ = new ItemSlot(world, 35, 35, new Layer[] { Layer.Ring }) { X = 50 - CELL_SPACING, Y = 175 + CELL_SPACING + TOP_SPACING };
+            _ = new ItemSlot(world, 35, 35, new Layer[] { Layer.Ring }, 0f, 1.0f) { X = 87 - CELL_SPACING, Y = 123 + CELL_SPACING + TOP_SPACING };
             itemLayerSlots.Add(_.Layers, _); //Ring
 
-            _ = new ItemSlot(world, 80, 35, new Layer[] { Layer.Waist }) { X = 85, Y = 175 + CELL_SPACING + TOP_SPACING };
+            _ = new ItemSlot(world, 80, 35, new Layer[] { Layer.Waist }, 0f, 1.0f) { X = 85, Y = 157 + CELL_SPACING + TOP_SPACING };
             itemLayerSlots.Add(_.Layers, _); //Belt
 
-            _ = new ItemSlot(world, 35, 35, new Layer[] { Layer.Bracelet }) { X = 165 + CELL_SPACING, Y = 175 + CELL_SPACING + TOP_SPACING };
+            _ = new ItemSlot(world, 35, 35, new Layer[] { Layer.Bracelet }, 0f, 1.0f) { X = 127 + CELL_SPACING, Y = 123 + CELL_SPACING + TOP_SPACING };
             itemLayerSlots.Add(_.Layers, _); //Bracelet
 
 
-            _ = new ItemSlot(world, 50, 50, new Layer[] { Layer.Gloves }) { X = 50 - CELL_SPACING, Y = 210 + CELL_SPACING + TOP_SPACING };
+            _ = new ItemSlot(world, 50, 50, new Layer[] { Layer.Gloves }, 0f, 1.1f) { X = 10 - CELL_SPACING, Y = 195 + CELL_SPACING + TOP_SPACING};
             itemLayerSlots.Add(_.Layers, _); //Gloves
 
-            _ = new ItemSlot(world, 50, 50, new Layer[] { Layer.Pants }) { X = 100, Y = 210 + CELL_SPACING + TOP_SPACING };
+            _ = new ItemSlot(world, 50, 50, new Layer[] { Layer.Pants }, 0f, 1.1f) { X = 98, Y = 195 + CELL_SPACING + TOP_SPACING};
             itemLayerSlots.Add(_.Layers, _); //Legs
 
-            _ = new ItemSlot(world, 50, 50, new Layer[] { Layer.Shoes }) { X = 150 + CELL_SPACING, Y = 210 + CELL_SPACING + TOP_SPACING };
+            _ = new ItemSlot(world, 50, 50, new Layer[] { Layer.Shoes }, 0f, 1.1f) { X = 97 + CELL_SPACING, Y = 300};
             itemLayerSlots.Add(_.Layers, _); //Boots
 
 
 
-            _ = new ItemSlot(world, 33, 34, new Layer[] { Layer.Talisman }) { X = 3, Y = 225 + CELL_SPACING + TOP_SPACING };
+            _ = new ItemSlot(world, 33, 34, new Layer[] { Layer.Talisman }, 0f, 1.2f) { X = 196, Y = 355 };
             itemLayerSlots.Add(_.Layers, _); //Talisman
 
-            _ = new ItemSlot(world, 33, 34, new Layer[] { Layer.Backpack }) { X = Width - 36, Y = 225 + CELL_SPACING + TOP_SPACING };
-            itemLayerSlots.Add(_.Layers, _); //Backpack
+            //_ = new ItemSlot(world, 33, 34, new Layer[] { Layer.Backpack }, 0f, 1.0f) { X = Width - 38, Y = 222 + CELL_SPACING + TOP_SPACING};
+            //itemLayerSlots.Add(_.Layers, _); //Backpack
 
 
-            _ = new ItemSlot(world, 24, 24, new Layer[] { Layer.Tunic }) { X = 8, Y = 163 + CELL_SPACING + TOP_SPACING };
+            _ = new ItemSlot(world, 24, 24, new Layer[] { Layer.Tunic }, 0f, 1.1f) { X = 18, Y = 359 };
             itemLayerSlots.Add(_.Layers, _);
 
-            _ = new ItemSlot(world, 24, 24, new Layer[] { Layer.Shirt }) { X = 8, Y = 193 + CELL_SPACING + TOP_SPACING };
+            _ = new ItemSlot(world, 24, 24, new Layer[] { Layer.Shirt }, 0f, 1.1f) { X = 65, Y = 359 };
             itemLayerSlots.Add(_.Layers, _);
 
 
-            _ = new ItemSlot(world, 24, 24, new Layer[] { Layer.Skirt }) { X = Width - 32, Y = 163 + CELL_SPACING + TOP_SPACING };
+            _ = new ItemSlot(world, 24, 24, new Layer[] { Layer.Skirt }, 0f, 1.1f) { X = 112, Y = 359 };
             itemLayerSlots.Add(_.Layers, _);
 
-            _ = new ItemSlot(world, 24, 24, new Layer[] { Layer.Legs }) { X = Width - 32, Y = 193 + CELL_SPACING + TOP_SPACING };
+            _ = new ItemSlot(world, 24, 24, new Layer[] { Layer.Legs }, 0f, 1.1f) { X = 157, Y = 359 };
             itemLayerSlots.Add(_.Layers, _);
             #endregion
 
             BuildLayerSlots();
 
-            var _virtueHitBox = new HitBox((WIDTH / 2) - 16, 1, 32, 32, "Virtues menu", 0f);
+            var _virtueHitBox = new HitBox((WIDTH / 2) - 16, 1, 32, 32, "Open Virtues", 0f);
             _virtueHitBox.MouseDoubleClick += (s, e) =>
             {
                 GameActions.ReplyGump
@@ -177,10 +184,10 @@ namespace ClassicUO.Game.UI.Gumps
             };
             Add(_virtueHitBox);
 
-            Add(titleLabel = new Label("", true, 0xffff, maxwidth: WIDTH - 30, align: TEXT_ALIGN_TYPE.TS_CENTER) { X = 15, Y = 273 + CELL_SPACING + TOP_SPACING, AcceptMouseInput = false });
+            //Add(titleLabel = new Label("", true, 0x03B2, maxwidth: WIDTH - 30, align: TEXT_ALIGN_TYPE.TS_CENTER) { X = 15, Y = 282 + CELL_SPACING + TOP_SPACING, AcceptMouseInput = false });
 
             var _minHit = new HitBox(1, 1, 14, 18, alpha: 0f);
-            _minHit.SetTooltip("Minimize paperdoll");
+            _minHit.SetTooltip("Minimize");
             _minHit.MouseUp += (s, e) =>
             {
                 Dispose();
@@ -189,9 +196,25 @@ namespace ClassicUO.Game.UI.Gumps
             Add(_minHit);
 
             RequestUpdateContents();
+
+            if (ProfileManager.CurrentProfile.CharacterPreviewVisible && UIManager.GetGump<CharacterPreview>(localSerial) == null)
+            {
+                var preview = new CharacterPreview(world, localSerial);
+                if (lastPreviewX > 0 || lastPreviewY > 0)
+                {
+                    preview.X = lastPreviewX;
+                    preview.Y = lastPreviewY;
+                }
+                else
+                {
+                    preview.X = X + Width + 10;
+                    preview.Y = Y;
+                }
+                UIManager.Add(preview);
+            }
         }
 
-        public void UpdateTitle(string text) => titleLabel.Text = text;
+        //public void UpdateTitle(string text) => titleLabel.Text = text;
 
         private void BuildLayerSlots()
         {
@@ -235,8 +258,8 @@ namespace ClassicUO.Game.UI.Gumps
             UIManager.GetGump<CharacterPreview>()?.PaperDollPreview.RequestUpdate();
 
             Mobile m = World.Mobiles.Get(LocalSerial);
-            if (m != null)
-                UpdateTitle(m.Title);
+            if (m != null);
+                //UpdateTitle(m.Title);
         }
 
         public void UpdateOptions()
@@ -341,13 +364,15 @@ namespace ClassicUO.Game.UI.Gumps
         {
             public Item Item;
             public readonly Layer[] Layers;
+            public float Rotation;
+            public float ItemScale;
 
             private readonly Area _itemArea;
             private readonly AlphaBlendControl _durabilityBar;
             private readonly World _world;
             private readonly List<SimpleTimedTextGump> _timedTexts = [];
 
-            public ItemSlot(World world, int width, int height, Layer[] layers)
+            public ItemSlot(World world, int width, int height, Layer[] layers, float rotation = 0f, float itemScale = 1.0f)
             {
                 _world = world;
                 AcceptMouseInput = true;
@@ -356,11 +381,13 @@ namespace ClassicUO.Game.UI.Gumps
                 CanCloseWithRightClick = true;
                 Width = width;
                 Height = height;
+                Rotation = rotation;
+                ItemScale = itemScale;
 
                 Add(_itemArea = new Area(false) { Width = Width, Height = Height, AcceptMouseInput = true, CanMove = true });
                 _itemArea.SetTooltip(layers[0].ToString());
 
-                Add(_durabilityBar = new AlphaBlendControl(0.75f) { Width = 7, Height = Height, Hue = ProfileManager.CurrentProfile.ModernPaperDollDurabilityHue, IsVisible = false });
+                Add(_durabilityBar = new AlphaBlendControl(0.75f) { Width = Width, Height = 3, Hue = ProfileManager.CurrentProfile.ModernPaperDollDurabilityHue, IsVisible = false });
 
                 this.Layers = layers;
             }
@@ -389,7 +416,7 @@ namespace ClassicUO.Game.UI.Gumps
             public void AddItem(World world, Gump gump, Item item)
             {
                 Item = item;
-                _itemArea.Add(new ItemGumpFixed(world, gump, item, Width, Height) { HighlightOnMouseOver = false });
+                _itemArea.Add(new ItemGumpFixed(world, gump, item, Width, Height, Rotation, ItemScale) { HighlightOnMouseOver = false });
                 UpdateDurability(item);
             }
 
@@ -410,8 +437,8 @@ namespace ClassicUO.Game.UI.Gumps
                         _durabilityBar.IsVisible = false;
                         return;
                     }
-                    _durabilityBar.Height = (int)(Height * durabilty.Percentage);
-                    _durabilityBar.Y = Height - _durabilityBar.Height;
+                    _durabilityBar.Width = (int)(Width * durabilty.Percentage);
+                    _durabilityBar.Y = Height - 3;
                     _durabilityBar.IsVisible = true;
                 }
                 else
@@ -461,8 +488,10 @@ namespace ClassicUO.Game.UI.Gumps
         private class ItemGumpFixed : ItemGump
         {
             public readonly Item item;
+            private readonly float _rotation;
+            private readonly float _itemScale;
 
-            public ItemGumpFixed(World world, Gump gump, Item item, int w, int h) : base
+            public ItemGumpFixed(World world, Gump gump, Item item, int w, int h, float rotation = 0f, float itemScale = 1.0f) : base
             (
                 gump,
                 item.Serial,
@@ -477,6 +506,8 @@ namespace ClassicUO.Game.UI.Gumps
 
                 Width = w;
                 Height = h;
+                _rotation = rotation;
+                _itemScale = itemScale;
                 WantUpdateSize = false;
                 CanCloseWithRightClick = true;
 
@@ -542,46 +573,27 @@ namespace ClassicUO.Game.UI.Gumps
                 ref readonly SpriteInfo texture = ref Client.Game.UO.Arts.GetArt((uint)item.DisplayedGraphic);
                 Rectangle _rect = Client.Game.UO.Arts.GetRealArtBounds((uint)item.DisplayedGraphic);
 
+                int targetW = _rect.Width;
+                int targetH = _rect.Height;
 
-                var _originalSize = new Point(Width, Height);
-                var _point = new Point((Width >> 1) - (_originalSize.X >> 1), (Height >> 1) - (_originalSize.Y >> 1));
+                if (targetW > Width) targetW = Width;
+                if (targetH > Height) targetH = Height;
 
-                if (_rect.Width < Width)
-                {
-                    _originalSize.X = _rect.Width;
-                    _point.X = (Width >> 1) - (_originalSize.X >> 1);
-                }
+                int finalW = (int)(targetW * _itemScale);
+                int finalH = (int)(targetH * _itemScale);
 
-                if (_rect.Height < Height)
-                {
-                    _originalSize.Y = _rect.Height;
-                    _point.Y = (Height >> 1) - (_originalSize.Y >> 1);
-                }
-
-                if (_rect.Width > Width)
-                {
-                    _originalSize.X = Width;
-                    _point.X = 0;
-                }
-
-                if (_rect.Height > Height)
-                {
-                    _originalSize.Y = Height;
-                    _point.Y = 0;
-                }
+                int drawX = x + (Width - finalW) / 2;
+                int drawY = y + (Height - finalH) / 2;
 
                 if (texture.Texture != null)
                 {
+                    Vector2 origin = new Vector2(_rect.Width / 2f, _rect.Height / 2f);
+                    Rectangle destRect = new Rectangle(drawX + finalW / 2, drawY + finalH / 2, finalW, finalH);
+
                     batcher.Draw
                     (
                         texture.Texture,
-                        new Rectangle
-                        (
-                            x + _point.X,
-                            y + _point.Y,
-                            _originalSize.X,
-                            _originalSize.Y
-                        ),
+                        destRect,
                         new Rectangle
                         (
                             texture.UV.X + _rect.X,
@@ -589,7 +601,11 @@ namespace ClassicUO.Game.UI.Gumps
                             _rect.Width,
                             _rect.Height
                         ),
-                        hueVector
+                        hueVector,
+                        MathHelper.ToRadians(_rotation),
+                        origin,
+                        SpriteEffects.None,
+                        0
                     );
 
                     return true;
@@ -635,13 +651,25 @@ namespace ClassicUO.Game.UI.Gumps
 
                 int i = 1;
 
-                var preview = new NiceButton(1, 1, Width - 2, 20, ButtonAction.Activate, "Preview");
+                var preview = new NiceButton(1, 1, Width - 2, 20, ButtonAction.Activate, "Show Character");
                 preview.MouseUp += (s, e) =>
                 {
                     if (e.Button == MouseButtonType.Left)
                     {
                         UIManager.GetGump<CharacterPreview>()?.Dispose();
-                        UIManager.Add(new CharacterPreview(world, localSerial) { X = 100, Y = 100 });
+                        ProfileManager.CurrentProfile.CharacterPreviewVisible = true;
+                        var cp = new CharacterPreview(world, localSerial);
+                        if (lastPreviewX > 0 || lastPreviewY > 0)
+                        {
+                            cp.X = lastPreviewX;
+                            cp.Y = lastPreviewY;
+                        }
+                        else
+                        {
+                            cp.X = 100;
+                            cp.Y = 100;
+                        }
+                        UIManager.Add(cp);
                     }
                 };
                 Add(preview);
@@ -820,7 +848,7 @@ namespace ClassicUO.Game.UI.Gumps
                 };
                 Add(abilities);
 
-                var weaponAbilities = new NiceButton(1, 1 + 20 * i++, Width - 2, 20, ButtonAction.Activate, "Weapon abilities");
+                var weaponAbilities = new NiceButton(1, 1 + 20 * i++, Width - 2, 20, ButtonAction.Activate, "Weapon Abilities");
                 weaponAbilities.MouseUp += (s, e) =>
                 {
                     GameActions.OpenAbilitiesBook(world);
@@ -837,22 +865,53 @@ namespace ClassicUO.Game.UI.Gumps
             }
         }
 
-        private class CharacterPreview : Gump
+        private class CharacterPreview : AnchorableGump
         {
             public readonly PaperDollInteractable PaperDollPreview;
             public CharacterPreview(World world, uint localSerial) : base(world, localSerial, 0)
             {
-                Width = 190;
-                Height = 250;
+                Width = 120;
+                Height = 8;
                 CanCloseWithRightClick = true;
                 CanMove = true;
                 AcceptMouseInput = true;
-                Add(new AlphaBlendControl(0.75f) { CanCloseWithRightClick = true, CanMove = true, Width = Width, Height = Height });
 
-                Add(PaperDollPreview = new PaperDollInteractable(0, 0, LocalSerial, null) { AcceptMouseInput = false });
+                // Configurações de ancoragem
+                AnchorType = ANCHOR_TYPE.NONE;
+                GroupMatrixWidth = Width;
+                GroupMatrixHeight = Height;
+                WantUpdateSize = false;
 
-                Add(new SimpleBorder() { Width = Width - 1, Height = Height - 1, Alpha = 0.85f });
+                Add(new AlphaBlendControl(0.2f)
+                {
+                    CanCloseWithRightClick = true,
+                    CanMove = true,
+                    Width = Width,
+                    Height = Height,
+                    Hue = 0
+                });
 
+                Add(PaperDollPreview = new PaperDollInteractable(-28, -220, LocalSerial, null) { AcceptMouseInput = false });
+}
+
+            public override void CloseWithRightClick()
+            {
+                if (ProfileManager.CurrentProfile != null)
+                    ProfileManager.CurrentProfile.CharacterPreviewVisible = false;
+                base.CloseWithRightClick();
+            }
+
+            public override bool ShouldBeSaved => false;
+
+            public override GumpType GumpType => GumpType.PaperDoll;
+
+            protected override void OnMove(int x, int y)
+            {
+                base.OnMove(x, y);
+                lastPreviewX = X;
+                lastPreviewY = Y;
+                if (ProfileManager.CurrentProfile != null)
+                    ProfileManager.CurrentProfile.CharacterPreviewPosition = new Point(X, Y);
             }
         }
 
@@ -870,7 +929,7 @@ namespace ClassicUO.Game.UI.Gumps
 
                 Checkbox _;
 
-                Add(_ = new Checkbox(0x00D2, 0x00D3) { X = 66, Y = 2 });
+                Add(_ = new Checkbox(0x00D2, 0x00D3) { X = 62, Y = 4 });
                 _.IsChecked = ProfileManager.CurrentProfile.OpenModernPaperdollAtMinimizeLoc;
                 _.SetTooltip("Open paperdoll at this location");
                 _.MouseUp += (s, e) =>

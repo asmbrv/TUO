@@ -52,6 +52,13 @@ namespace ClassicUO.Game.UI.Controls
         private bool _needsRecalculate = true;
 
         /// <summary>
+        /// Define a cor do destaque de seleção.
+        /// </summary>
+        public ushort SelectionHue { get; set; } = 0x941;
+
+        public bool IsSelected { get; set; }
+
+        /// <summary>
         /// Creates a new StaticPaperDollView control.
         /// </summary>
         /// <param name="bodyGraphic">The body graphic ID (e.g., 0x0190 for male human, 0x0191 for female human)</param>
@@ -345,7 +352,12 @@ namespace ClassicUO.Game.UI.Controls
                 return;
             }
 
-            Vector3 hueVector = ShaderHueTranslator.GetHueVector(hue, isPartialHue, Alpha, true);
+            // Se selecionado, aplica a SelectionHue. 
+            // Forçamos isPartialHue para false para que o brilho de seleção seja uniforme em todo o sprite.
+            ushort drawHue = IsSelected ? SelectionHue : hue;
+            bool drawPartial = IsSelected ? false : isPartialHue;
+
+            Vector3 hueVector = ShaderHueTranslator.GetHueVector(drawHue, drawPartial, Alpha, true);
 
             int scaledWidth = (int)(gumpInfo.UV.Width * _scaleFactor);
             int scaledHeight = (int)(gumpInfo.UV.Height * _scaleFactor);

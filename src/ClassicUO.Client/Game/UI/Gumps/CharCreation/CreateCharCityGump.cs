@@ -40,6 +40,8 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
 
         public CreateCharSelectionCityGump(World world, byte profession, LoginScene scene) : base(world, 0, 0)
         {
+            Width = 1024;
+            Height = 768;
             CanMove = false;
             CanCloseWithRightClick = false;
             CanCloseWithEsc = false;
@@ -87,20 +89,20 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
                 style: FontStyle.BlackBorder
             )
             {
-                X = 240,
-                Y = 440
+                X = 390,
+                Y = 160
             };
 
 
             if (Client.Game.UO.Version >= ClientVersion.CV_70130)
             {
-                Add(new GumpPic(62, 54, (ushort) (0x15D9 + map), 0));
-                Add(new GumpPic(57, 49, 0x15DF, 0));
+                Add(new GumpPic(225, 185, (ushort) (0x15D9 + map), 0));
+                Add(new GumpPic(220, 180, 0x15DF, 0));
                 _facetName.Text = _cityNames[map];
             }
             else
             {
-                Add(new GumpPic(57, 49, 0x1598, 0));
+                Add(new GumpPic(220, 180, 0x1598, 0));
                 _facetName.IsVisible = false;
             }
 
@@ -110,8 +112,8 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
             (
                 new Button((int) Buttons.PreviousScreen, 0x15A1, 0x15A3, 0x15A2)
                 {
-                    X = 586,
-                    Y = 445,
+                    X = 5,
+                    Y = 650,
                     ButtonAction = ButtonAction.Activate
                 }
             );
@@ -120,8 +122,8 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
             (
                 new Button((int) Buttons.Finish, 0x15A4, 0x15A6, 0x15A5)
                 {
-                    X = 610,
-                    Y = 445,
+                    X = 870,
+                    Y = 650,
                     ButtonAction = ButtonAction.Activate
                 }
             );
@@ -129,8 +131,8 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
 
             _htmlControl = new HtmlControl
             (
-                452,
-                60,
+                615,
+                191,
                 175,
                 367,
                 true,
@@ -162,17 +164,17 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
                         cityFacet = 5;
                     }
 
-                    x = 62 + MathHelper.PercentageOf(Client.Game.UO.FileManager.Maps.MapsDefaultSize[cityFacet, 0] - 2048, c.X, 383);
-                    y = 54 + MathHelper.PercentageOf(Client.Game.UO.FileManager.Maps.MapsDefaultSize[cityFacet, 1], c.Y, 384);
+                    x = 225 + MathHelper.PercentageOf(Client.Game.UO.FileManager.Maps.MapsDefaultSize[cityFacet, 0] - 2048, c.X, 383);
+                    y = 185 + MathHelper.PercentageOf(Client.Game.UO.FileManager.Maps.MapsDefaultSize[cityFacet, 1], c.Y, 384);
                 }
                 else if (i < _townButtonsText.Length)
                 {
-                    x = _townButtonsText[i].X;
+                    x = _townButtonsText[i].X + 163;
 
-                    y = _townButtonsText[i].Y;
+                    y = _townButtonsText[i].Y + 131;
                 }
 
-                var control = new CityControl(c, x, y, i);
+                var control = new CityControl(c, i) { X = x, Y = y };
                 Add(control);
                 _cityControls.Add(control);
             }
@@ -268,22 +270,21 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
             private bool _isSelected;
             private readonly HoveredLabel _label;
 
-            public CityControl(CityInfo c, int x, int y, int index)
+            public CityControl(CityInfo c, int index)
             {
+                Width = 30;
+                Height = 30;
                 CanMove = false;
-
 
                 Add
                 (
                     _button = new Button(2 + index, 0x04B9, 0x04BA, 0x04BA)
                     {
                         ButtonAction = ButtonAction.Activate,
-                        X = x,
-                        Y = y
+                        X = 0,
+                        Y = 0
                     }
                 );
-
-                y -= 20;
 
                 _label = new HoveredLabel
                 (
@@ -295,14 +296,16 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
                     font: 3
                 )
                 {
-                    X = x,
-                    Y = y,
+                    Y = -20,
                     Tag = index
                 };
 
-                if (_label.X + _label.Width >= 383)
+                // Centraliza e desloca 5 pixels para a esquerda
+                _label.X = ((Width - _label.Width) / 2) - 20;
+
+                if (X + _label.X + _label.Width >= 608)
                 {
-                    _label.X -= 60;
+                    _label.X = 608 - (int)X - _label.Width;
                 }
 
                 _label.MouseUp += (sender, e) =>
@@ -340,21 +343,6 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
                     _button.IsClicked = _button.MouseIsOver || _label.MouseIsOver;
                     _label.ForceHover = _button.MouseIsOver;
                 }
-            }
-
-            public override bool Contains(int x, int y)
-            {
-                IGui c = null;
-                _label.HitTest(x, y, ref c);
-
-                if (c != null)
-                {
-                    return true;
-                }
-
-                _button.HitTest(x, y, ref c);
-
-                return c != null;
             }
         }
     }
