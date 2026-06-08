@@ -122,7 +122,7 @@ namespace ClassicUO.Game.UI.Gumps
             Add(_buttonNext);
 
             Add(
-                _currentPageLabel = new Label("1", true, 999, align: TEXT_ALIGN_TYPE.TS_CENTER)
+                _currentPageLabel = new Label("1", true, 0x99A, align: TEXT_ALIGN_TYPE.TS_CENTER)
                 {
                     X = Width / 2 - 5,
                     Y = Height - 20
@@ -141,7 +141,7 @@ namespace ClassicUO.Game.UI.Gumps
                 {
                     Width = 300,
                     X = 0,
-                    Y = 0
+                    Y = 10
                 }
             );
         }

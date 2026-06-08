@@ -10,7 +10,7 @@ namespace ClassicUO.Game.UI.Controls
         private Vector3 hueVector;
         private ushort hue;
 
-        public AlphaBlendControl(float alpha = 0.5f)
+        public AlphaBlendControl(float alpha = 0.7f)
         {
             Alpha = alpha;
             AcceptMouseInput = false;

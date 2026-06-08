@@ -73,7 +73,7 @@ namespace ClassicUO.Game
         public const int DEAD_RANGE_COLOR = 0x038E;
         public const int DEATH_SCREEN_TIMER = 1500;
 
-        public const ushort HIGHLIGHT_CURRENT_OBJECT_HUE = 0x014;
+        public const ushort HIGHLIGHT_CURRENT_OBJECT_HUE = 0x8AB;
 
         public const int MAX_JOURNAL_HISTORY_COUNT = 1000;
 

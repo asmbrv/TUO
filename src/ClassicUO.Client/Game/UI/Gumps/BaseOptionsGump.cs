@@ -44,7 +44,7 @@ public class BaseOptionsGump : Gump
             {
                 AcceptMouseInput = true,
                 CanMove = true,
-                Alpha = 0.85f
+                Alpha = 0.5f
             }
         );
 
@@ -54,7 +54,7 @@ public class BaseOptionsGump : Gump
             {
                 AcceptMouseInput = true,
                 CanMove = true,
-                Alpha = 0.85f
+                Alpha = 1.0f
             }
         );
 
@@ -215,9 +215,9 @@ public class BaseOptionsGump : Gump
 
     public static class ThemeSettings
     {
-        public static int SLIDER_WIDTH { get; set; } = 250;
+        public static int SLIDER_WIDTH { get; set; } = 200;
         public static int COMBO_BOX_WIDTH { get; set; } = 225;
-        public static int SCROLL_BAR_WIDTH { get; set; } = 10;
+        public static int SCROLL_BAR_WIDTH { get; set; } = 8;
         public static int INPUT_WIDTH { get; set; } = 200;
         public static int TOP_PADDING { get; set; } = 5;
         public static int INDENT_SPACE { get; set; } = 40;
@@ -234,10 +234,10 @@ public class BaseOptionsGump : Gump
             }
         }
         public static float NO_MATCH_SEARCH { get; set; } = 0.5f;
-        public static ushort BACKGROUND { get; set; } = 902;
-        public static ushort SEARCH_BACKGROUND { get; set; } = 1352;
-        public static ushort CHECKBOX { get; set; } = 1352;
-        public static int CHECKBOX_SIZE { get; set; } = 18;
+        public static ushort BACKGROUND { get; set; } = 1;
+        public static ushort SEARCH_BACKGROUND { get; set; } = 1345;
+        public static ushort CHECKBOX { get; set; } = 1345;
+        public static int CHECKBOX_SIZE { get; set; } = 14;
         public static ushort BLACK { get; set; } = 0;
         public static Color DROPDOWN_OPTION_NORMAL_HUE { get; set; } = Color.White;
         public static Color DROPDOWN_OPTION_HOVER_HUE { get; set; } = Color.AntiqueWhite;

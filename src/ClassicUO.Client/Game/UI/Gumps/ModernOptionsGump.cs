@@ -28,7 +28,7 @@ namespace ClassicUO.Game.UI.Gumps
         private Profile profile;
         private ModernOptionsGumpLanguage lang = Language.Instance.GetModernOptionsGumpLanguage;
 
-        public ModernOptionsGump(World world) : base(world, 900, 700,
+        public ModernOptionsGump(World world) : base(world, 850, 750,
             Language.Instance.GetModernOptionsGumpLanguage.OptionsTitle)
         {
             profile = CurrentProfile;

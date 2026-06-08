@@ -36,11 +36,11 @@ namespace ClassicUO.Game.UI.Gumps
             #region VARS
             Width = WIDTH;
             Height = ProfileManager.CurrentProfile.VendorGumpHeight;
-            if (Height < 200)
-                Height = 200;
+            if (Height < 300)
+                Height = 300;
 
-            CenterXInViewPort();
-            CenterYInViewPort();
+            CenterXInScreen();
+            CenterYInScreen();
 
             AcceptMouseInput = true;
             CanCloseWithRightClick = true;
@@ -51,12 +51,12 @@ namespace ClassicUO.Game.UI.Gumps
 
             scrollArea = new ScrollArea(1, 75, Width - 2, Height - 77, true) { ScrollbarBehaviour = ScrollbarBehaviour.ShowAlways };
 
-            Add(background = new AlphaBlendControl(0.75f) { Width = Width, Height = Height, Hue = 997 });
+            Add(background = new AlphaBlendControl(0.8f) { Width = Width, Height = Height, Hue = 1 });
 
-            Add(new AlphaBlendControl(0.65f) { Width = Width, Height = 75, Hue = 997 });
+            Add(new AlphaBlendControl(0.65f) { Width = Width, Height = 75, Hue = 0x99A });
 
             TextBox _;
-            Add(_ = TextBox.GetOne(isPurchaseGump ? "Shop Inventory" : "Your Inventory", TrueTypeLoader.EMBEDDED_FONT, 30, Color.LightBlue, TextBox.RTLOptions.DefaultCentered(Width)));
+            Add(_ = TextBox.GetOne(isPurchaseGump ? "Buy from Vendor" : "Sell to Vendor", TrueTypeLoader.EMBEDDED_FONT, 30, Color.Gold, TextBox.RTLOptions.DefaultCentered(Width)));
             _.Y = (50 - _.MeasuredSize.Y) / 2;
             _.AcceptMouseInput = false;
 
@@ -94,11 +94,11 @@ namespace ClassicUO.Game.UI.Gumps
             Add(scrollArea);
 
             Add(resizeDrag = new HitBox(Width / 2 - 10, Height - 10, 20, 10, "Drag to resize", 0.50f));
-            resizeDrag.Add(new AlphaBlendControl(0.4f) { Width = 20, Height = 10, BaseColor = Color.White });
+            resizeDrag.Add(new AlphaBlendControl(0.4f) { Width = 20, Height = 10, BaseColor = Color.Gold });
             resizeDrag.MouseDown += ResizeDrag_MouseDown;
             resizeDrag.MouseUp += ResizeDrag_MouseUp;
 
-            Add(border = new SimpleBorder() { Width = Width, Height = Height, Hue = 0, Alpha = 0.3f });
+            Add(border = new SimpleBorder() { Width = Width, Height = Height, Hue = 1, Alpha = 0.3f });
         }
 
         private void ResizeDrag_MouseUp(object sender, Input.MouseEventArgs e) => dragging = false;
@@ -299,7 +299,7 @@ namespace ClassicUO.Game.UI.Gumps
                 Add(itemInfo);
                 Add(purchaseSell);
 
-                Add(new SimpleBorder() { Width = Width, Height = Height, Hue = 0, Alpha = 0.2f });
+                Add(new SimpleBorder() { Width = Width, Height = Height, Hue = 1, Alpha = 0.2f });
             }
 
             public void SetName(string s)
@@ -484,7 +484,7 @@ namespace ClassicUO.Game.UI.Gumps
 
                     UpdateQuantity(quantity, price);
 
-                    Add(new SimpleBorder() { Width = Width, Height = Height, Hue = 997, Alpha = 0.2f });
+                    Add(new SimpleBorder() { Width = Width, Height = Height, Hue = 1, Alpha = 0.2f });
 
                 }
 
