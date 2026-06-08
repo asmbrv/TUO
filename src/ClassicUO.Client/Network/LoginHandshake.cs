@@ -171,6 +171,12 @@ namespace ClassicUO.Network
             }
 
             SetLoginStep(LoginSteps.ServerSelection);
+
+            if (Settings.GlobalSettings.SkipServerSelect && Servers.Length == 1 && CurrentLoginStep == LoginSteps.ServerSelection) //Double check server selection, the previous call may initiate auto login and already select one
+            {      
+                SelectServer((byte)Servers[0].Index, Servers[0].Name);
+                return;
+            }
         }
 
         public event NotifierEventHandler ReceiveCharacterListNotifier;
@@ -247,7 +253,7 @@ namespace ClassicUO.Network
 
             for (int i = 0; i < Servers.Length; i++)
                 if (Servers[i].Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))
-                    return i;
+                    return Servers[i].Index;
 
             return -1;
         }
