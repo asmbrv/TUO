@@ -394,23 +394,23 @@ namespace ClassicUO.Game.UI.Gumps.Login
 
             Add
             (
-                new Label($"UO Version {Settings.GlobalSettings.ClientVersion}.", false, 0x034E, font: 9)
+                new Label($"UO Version {Settings.GlobalSettings.ClientVersion}.", false, 0x0481, font: 9)  //0x034E
                 {
-                    X = 286,
-                    Y = 453
+                    X = 430,
+                    Y = 730
                 }
             );
 
             Add
             (
-                new Label(string.Format("TazUO Version {0}", CUOEnviroment.Version), false, 0x034E, font: 9)
+                new Label(string.Format("TazUO Version {0}", CUOEnviroment.Version), false, 0x0481, font: 9) //0x034E
                 {
-                    X = 286,
-                    Y = 465
+                    X = 430,
+                    Y = 745
                 }
             );
 
-            var optionsButton = new NiceButton(5, 5, 80, 30, ButtonAction.Default, "Options") { IsSelectable = false, BackgroundColor = new Color(0.7f, 0.7f, 0.7f, 0.7f) };
+            var optionsButton = new NiceButton(5, 5, 80, 30, ButtonAction.Default, "Options") { IsSelectable = false };
             optionsButton.MouseDown += (s,e) =>
             {
                 ContextMenuControl c = GenOptionsContext();
@@ -423,7 +423,7 @@ namespace ClassicUO.Game.UI.Gumps.Login
         private ContextMenuControl GenOptionsContext()
         {
             var c = new ContextMenuControl(this);
-            c.Add(new ContextMenuItemEntry("Skip Server Select? (When only 1 server is available)", () =>
+            c.Add(new ContextMenuItemEntry("Skip Server Select", () =>
             {
                 Settings.GlobalSettings.SkipServerSelect = !Settings.GlobalSettings.SkipServerSelect;
                 _ = Client.Settings.SetAsync(SettingsScope.Global, Constants.SqlSettings.SKIP_SERVER_SELECTION, Settings.GlobalSettings.SkipServerSelect);

@@ -145,7 +145,7 @@ namespace ClassicUO.Game.UI.Gumps.Login
 
             foreach (ServerListEntry server in loginScene.Servers)
             {
-                databox.Add(new ServerEntryGump(server, 5, NORMAL_COLOR, SELECTED_COLOR));
+                databox.Add(new ServerEntryGump(server, 9, NORMAL_COLOR, SELECTED_COLOR));
                 if(server.Index == index)
                     selected = server;
             }
@@ -155,20 +155,20 @@ namespace ClassicUO.Game.UI.Gumps.Login
             Add(scrollArea);
             scrollArea.Add(databox);
 
-            if (loginScene.Servers.Length != 0)
-            {
-                if (selected == null)
-                    selected = loginScene.Servers[0];
-
-                Add
-                (
-                    new Label(selected.Name, false, 0x0481, font: 9)
-                    {
-                        X = 243,
-                        Y = 420
-                    }
-                );
-            }
+            //if (loginScene.Servers.Length != 0)
+            //{
+            //    if (selected == null)
+            //        selected = loginScene.Servers[0];
+            //    
+            //    Add
+            //    (
+            //        new Label(selected.Name, false, 0x0481, font: 9)
+            //        {
+            //            X = 243,
+            //            Y = 420
+            //        }
+            //    );
+            //}
 
             AcceptKeyboardInput = true;
             CanCloseWithRightClick = false;
